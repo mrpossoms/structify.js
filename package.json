@@ -1,0 +1,19 @@
+{
+  "name": "structify.js",
+  "version": "0.0.1",
+  "description": "Helps easily convert JS objects into binary Buffers which can be understood easily as C/C++ structs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "struct",
+    "binary",
+    "C",
+    "C++",
+    "serialize",
+    "serializer"
+  ],
+  "author": "Kirk Roerig",
+  "license": "WTFPL"
+}
