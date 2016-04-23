@@ -24,7 +24,7 @@ var layout = [
   { 
     name: 'username', // JS object property name
     type: 'u8',       // Binary data type
-    size: author.username.length + 1 // use an extra byte for null termination
+    size: author.username.length
   }
 ];
 
@@ -39,6 +39,12 @@ The contents of `buf` will look like this.
 // or as a string
 '\u0000\u0000\u0000@?mrpossoms\u0000'
 ```
+Similarly to `.structify()`, `.objectify()` can be called on a Buffer object to read it's contents into a JS object specified with the same layout object.
+```
+var obj = buf.objectify(layout);
+```
+This call will result in an object which looks just like the original `author` object.
+
 *Note: All buffers allocated with .structify() are zero filled.*
 
 ##Compatible Types
