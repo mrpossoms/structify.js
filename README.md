@@ -14,7 +14,7 @@ var author = {
 ```
 Can be serialized using...
 ```JavaScript
-require('structify');
+require('structify.js');
 
 // The layout specifies the order that JS
 // object properties will be written into the buffer.

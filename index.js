@@ -57,3 +57,51 @@ Object.prototype.structify = function(lo){
 
 	return buf.slice(0, off);
 };
+
+Buffer.prototype.objectify = function(lo){
+	if(lo.constructor !== Array){
+		return null;
+	}
+
+	var isBE = lo.isBigEndian;
+	var obj = {};
+	var off = 0;
+
+	for(var i = 0; i < lo.length; ++i){
+		var name = lo[i].name;
+		var type = lo[i].type;
+		var call = 'read';
+		var isInt = false;
+		var bpe = 0;
+
+		switch(type[0]){
+		case 'f': call += 'Float'; bpe = 4;  break;
+		case 'd': call += 'Double'; bpe = 8; break;
+		case 'u': call += 'UInt'; isInt = true; break;
+		case 'i': call += 'Int'; isInt = true; break;
+		}
+		
+		if(isInt){
+			var bits = parseInt(type.substr(1, type.length - 1));
+			call += type.substr(1, type.length - 1);
+			bpe = bits >> 3; 
+		}
+
+		if(bpe > 1){
+			call += isBE ? 'BE' : 'LE';
+		}
+
+		if(lo[i].size && bpe == 1){
+			var size = lo[i].size;
+			obj[name] = this.toString('ascii', off, off + size);
+			off += size;
+		}
+		else{
+			obj[name] = this[call](off, bpe);
+			off += bpe;
+		}
+	}
+
+	return obj;
+
+};
