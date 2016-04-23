@@ -1,11 +1,13 @@
-Object.prototype.structify = function(lo){
+Object.prototype.structify = function(lo, offset){
 	if(lo.constructor !== Array){
 		return null;
 	}
 
+	offset = !offset ? 0 : offset;
+
 	var isBE = lo.isBigEndian;
 	var buf = new Buffer(16);
-	var off = 0;
+	var off = offset;
 
 	buf.fill(0);
 	for(var i = 0; i < lo.length; ++i){
@@ -58,14 +60,16 @@ Object.prototype.structify = function(lo){
 	return buf.slice(0, off);
 };
 
-Buffer.prototype.objectify = function(lo){
+Buffer.prototype.objectify = function(lo, offset){
 	if(lo.constructor !== Array){
 		return null;
 	}
 
+	offset = !offset ? 0 : offset;
+	
 	var isBE = lo.isBigEndian;
 	var obj = {};
-	var off = 0;
+	var off = offset;
 
 	for(var i = 0; i < lo.length; ++i){
 		var name = lo[i].name;
@@ -101,6 +105,8 @@ Buffer.prototype.objectify = function(lo){
 			off += bpe;
 		}
 	}
+
+	obj.size_in_bytes = off;
 
 	return obj;
 
