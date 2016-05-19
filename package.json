@@ -1,6 +1,6 @@
 {
   "name": "structify.js",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Helps easily convert JS objects into binary Buffers which can be understood easily as C/C++ structs",
   "main": "index.js",
   "scripts": {

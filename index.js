@@ -106,7 +106,7 @@ Buffer.prototype.objectify = function(lo, offset){
 		}
 	}
 
-	obj.size_in_bytes = off;
+	obj.size_in_bytes = off - offset;
 
 	return obj;
 
